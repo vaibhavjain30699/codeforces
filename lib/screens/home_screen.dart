@@ -8,10 +8,19 @@ class HomeScreen extends StatelessWidget {
         title: Text('CodeForces'),
       ),
       drawer: Drawer(
-        child: Column(
+        child: ListView(
           children: <Widget>[
             DrawerHeader(
               child: Text('Welcome to the App'),
+            ),
+            ListTile(
+              title: Text('Contests'),
+            ),
+            ListTile(
+              title: Text('User Info'),
+            ),
+            ListTile(
+              title: Text('Settings'),
             ),
           ],
         ),
