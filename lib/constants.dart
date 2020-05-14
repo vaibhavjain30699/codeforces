@@ -5,3 +5,5 @@ enum DrawerSelection { Contests, UserInfo, Settings }
 const url_contest = 'https://codeforces.com/api/contest.list?gym=false';
 
 const kTypeWriterAnimatedText = 'Developed by Vaibhav Jain';
+
+const kUserInfoUrl = 'https://codeforces.com/api/user.info?handles=';

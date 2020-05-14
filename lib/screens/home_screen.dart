@@ -1,6 +1,9 @@
+import 'package:codeforces/networking.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:codeforces/constants.dart';
 import 'package:codeforces/components/drawer_list_item.dart';
+import 'package:codeforces/models/contests.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({this.contestData});
@@ -13,6 +16,29 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   DrawerSelection selectedItem = DrawerSelection.Contests;
+
+  List<Contest> contest = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getContestsList();
+  }
+
+  void getContestsList() {
+    contest.clear();
+    for (var temp in widget.contestData['result']) {
+      if (contest.length >= 100) break;
+      double duration = temp['durationSeconds'] / 3600;
+      Contest t = Contest(
+          id: temp['id'],
+          type: temp['type'],
+          name: temp['name'],
+          duration: duration);
+      contest.add(t);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +55,41 @@ class _HomeScreenState extends State<HomeScreen> {
             DrawerListItem(
               item: DrawerSelection.Contests,
               labelText: 'Contests',
-              onTap: () {
-                Navigator.pop(context);
+              onTap: () async {
+                if (selectedItem == DrawerSelection.Contests)
+                  Navigator.pop(context);
+                else {
+                  Navigator.pop(context);
+                  NetworkHelper network = NetworkHelper();
+                  var contestData = await network.getContestData();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return HomeScreen(
+                          contestData: contestData,
+                        );
+                      },
+                    ),
+                  );
+                }
+                setState(() {
+                  selectedItem = DrawerSelection.Contests;
+                });
               },
               selectedItem: selectedItem,
             ),
             DrawerListItem(
               item: DrawerSelection.UserInfo,
               labelText: 'UserInfo',
-              onTap: () {},
+              onTap: () {
+                if (selectedItem == DrawerSelection.UserInfo)
+                  Navigator.pop(context);
+                else {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/user_info');
+                }
+              },
               selectedItem: selectedItem,
             ),
             DrawerListItem(
@@ -48,6 +100,29 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
+      ),
+      body: ListView.builder(
+        itemCount: contest.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Color(0xFFE1F5FE),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
+              ),
+              child: ListTile(
+                contentPadding: EdgeInsets.all(10.0),
+                title: Text(contest[index].name),
+                subtitle: Text(contest[index].type),
+                trailing:
+                    Text('${contest[index].duration.toStringAsFixed(1)} hr'),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
