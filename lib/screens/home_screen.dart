@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:codeforces/constants.dart';
+import 'package:codeforces/components/drawer_list_item.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  HomeScreen({this.contestData});
+
+  final contestData;
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  DrawerSelection selectedItem = DrawerSelection.Contests;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,14 +26,25 @@ class HomeScreen extends StatelessWidget {
             DrawerHeader(
               child: Text('Welcome to the App'),
             ),
-            ListTile(
-              title: Text('Contests'),
+            DrawerListItem(
+              item: DrawerSelection.Contests,
+              labelText: 'Contests',
+              onTap: () {
+                Navigator.pop(context);
+              },
+              selectedItem: selectedItem,
             ),
-            ListTile(
-              title: Text('User Info'),
+            DrawerListItem(
+              item: DrawerSelection.UserInfo,
+              labelText: 'UserInfo',
+              onTap: () {},
+              selectedItem: selectedItem,
             ),
-            ListTile(
-              title: Text('Settings'),
+            DrawerListItem(
+              item: DrawerSelection.Settings,
+              labelText: 'Settings',
+              onTap: () {},
+              selectedItem: selectedItem,
             ),
           ],
         ),

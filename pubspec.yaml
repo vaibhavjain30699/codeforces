@@ -23,6 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^0.12.1
+  animated_text_kit: ^2.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -38,7 +40,13 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - images/
 
+  fonts:
+    - family: Pangolin
+      fonts:
+        - asset: fonts/Pangolin-Regular.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
