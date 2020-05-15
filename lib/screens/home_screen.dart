@@ -7,7 +7,6 @@ import 'package:codeforces/models/contests.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({this.contestData});
-
   final contestData;
 
   @override
@@ -50,7 +49,19 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(
           children: <Widget>[
             DrawerHeader(
-              child: Text('Welcome to the App'),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage('images/codeforces_icon.jpeg'),
+                    radius: 35.0,
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text('Codeforces'),
+                ],
+              ),
             ),
             DrawerListItem(
               item: DrawerSelection.Contests,
@@ -115,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: ListTile(
                 contentPadding: EdgeInsets.all(10.0),
-                title: Text(contest[index].name),
+                title: Text('#${contest[index].id} ${contest[index].name}'),
                 subtitle: Text(contest[index].type),
                 trailing:
                     Text('${contest[index].duration.toStringAsFixed(1)} hr'),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:codeforces/constants.dart';
 
@@ -18,6 +19,7 @@ class DrawerListItem extends StatelessWidget {
         selected: selectedItem == item,
         title: Text(
           labelText,
+          textAlign: TextAlign.center,
         ),
       ),
     );
