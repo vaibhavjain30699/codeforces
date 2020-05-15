@@ -106,7 +106,10 @@ class _HomeScreenState extends State<HomeScreen> {
             DrawerListItem(
               item: DrawerSelection.Settings,
               labelText: 'Settings',
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/settings');
+              },
               selectedItem: selectedItem,
             ),
           ],
