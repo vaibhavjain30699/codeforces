@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:codeforces/constants.dart';
 import 'package:codeforces/components/drawer_list_item.dart';
 import 'package:codeforces/models/contests.dart';
+import 'package:provider/provider.dart';
+import 'package:codeforces/theme/provider_class.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({this.contestData});
@@ -15,7 +17,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   DrawerSelection selectedItem = DrawerSelection.Contests;
-
   List<Contest> contest = [];
 
   @override
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void getContestsList() {
     contest.clear();
     for (var temp in widget.contestData['result']) {
-      if (contest.length >= 100) break;
+      if (contest.length >= 150) break;
       double duration = temp['durationSeconds'] / 3600;
       Contest t = Contest(
           id: temp['id'],
@@ -41,6 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('CodeForces'),
@@ -66,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
             DrawerListItem(
               item: DrawerSelection.Contests,
               labelText: 'Contests',
+              icon: Icon(Icons.list),
               onTap: () async {
                 if (selectedItem == DrawerSelection.Contests)
                   Navigator.pop(context);
@@ -93,6 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
             DrawerListItem(
               item: DrawerSelection.UserInfo,
               labelText: 'UserInfo',
+              icon: Icon(Icons.search),
               onTap: () {
                 if (selectedItem == DrawerSelection.UserInfo)
                   Navigator.pop(context);
@@ -106,6 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
             DrawerListItem(
               item: DrawerSelection.Settings,
               labelText: 'Settings',
+              icon: Icon(Icons.settings),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/settings');
@@ -122,7 +128,9 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(10.0),
             child: Container(
               decoration: BoxDecoration(
-                color: Color(0xFFE1F5FE),
+                color: themeChange.darkTheme
+                    ? Color(0xFF0288D1)
+                    : Color(0xFFE1F5FE),
                 borderRadius: BorderRadius.all(
                   Radius.circular(10.0),
                 ),
