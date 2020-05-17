@@ -48,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('CodeForces'),
       ),
+      drawerEnableOpenDragGesture: true,
       drawer: Drawer(
         child: ListView(
           children: <Widget>[

@@ -1,4 +1,5 @@
 import 'package:codeforces/screens/settings_screen.dart';
+import 'package:codeforces/screens/user_info_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:codeforces/screens/home_screen.dart';
 import 'package:codeforces/screens/splash_screen.dart';

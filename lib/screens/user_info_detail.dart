@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:codeforces/models/color_setter.dart';
+import 'package:provider/provider.dart';
+import 'package:codeforces/theme/provider_class.dart';
 
 class UserDetails extends StatelessWidget {
   UserDetails({this.userData});
@@ -9,6 +11,7 @@ class UserDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
     int rating = (userData['rating'] == null) ? 0 : userData['rating'];
     String name =
         (userData['firstName'] == null && userData['lastName'] == null)
@@ -22,7 +25,8 @@ class UserDetails extends StatelessWidget {
       body: SafeArea(
         child: Container(
           width: double.infinity,
-          color: Colors.white,
+          color:
+              themeChange.darkTheme ? Colors.blueGrey.shade900 : Colors.white,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
