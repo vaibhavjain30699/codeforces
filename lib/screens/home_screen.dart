@@ -1,4 +1,6 @@
+import 'package:codeforces/models/problems.dart';
 import 'package:codeforces/networking.dart';
+import 'package:codeforces/screens/problem_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:codeforces/constants.dart';
@@ -42,7 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -97,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             DrawerListItem(
               item: DrawerSelection.UserInfo,
-              labelText: 'UserInfo',
+              labelText: 'UserInfo Search',
               icon: Icon(Icons.search),
               onTap: () {
                 if (selectedItem == DrawerSelection.UserInfo)
@@ -108,6 +109,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               },
               selectedItem: selectedItem,
+            ),
+            DrawerListItem(
+              item: DrawerSelection.Problemset,
+              labelText: 'Problemset',
+              icon: Icon(Icons.question_answer),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ProblemScreen();
+                    },
+                  ),
+                );
+              },
             ),
             DrawerListItem(
               item: DrawerSelection.Settings,
@@ -126,22 +143,20 @@ class _HomeScreenState extends State<HomeScreen> {
         itemCount: contest.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.symmetric(
+              vertical: 5.0,
+              horizontal: 10.0,
+            ),
             child: Container(
-              decoration: BoxDecoration(
-                color: themeChange.darkTheme
-                    ? Color(0xFF0288D1)
-                    : Color(0xFFE1F5FE),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
+              child: Card(
+                elevation: 5.0,
+                child: ListTile(
+                  contentPadding: EdgeInsets.all(10.0),
+                  title: Text('#${contest[index].id} ${contest[index].name}'),
+                  subtitle: Text(contest[index].type),
+                  trailing:
+                      Text('${contest[index].duration.toStringAsFixed(1)} hr'),
                 ),
-              ),
-              child: ListTile(
-                contentPadding: EdgeInsets.all(10.0),
-                title: Text('#${contest[index].id} ${contest[index].name}'),
-                subtitle: Text(contest[index].type),
-                trailing:
-                    Text('${contest[index].duration.toStringAsFixed(1)} hr'),
               ),
             ),
           );

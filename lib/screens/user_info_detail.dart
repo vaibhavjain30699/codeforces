@@ -16,7 +16,7 @@ class UserDetails extends StatelessWidget {
     String name =
         (userData['firstName'] == null && userData['lastName'] == null)
             ? ''
-            : userData['firstName'] + userData['lastName'];
+            : userData['firstName'] + ' ' + userData['lastName'];
     String country = (userData['country'] == null) ? '' : userData['country'];
     int maxRating = (userData['maxRating'] == null) ? 0 : userData['maxRating'];
     String url = 'https:' + userData['titlePhoto'];

@@ -19,4 +19,12 @@ class NetworkHelper {
     else
       print(response.statusCode);
   }
+
+  Future<dynamic> getProblemsData() async {
+    http.Response response = await http.get(kProblemURl);
+    if (response.statusCode == 200)
+      return jsonDecode(response.body);
+    else
+      print(response.statusCode);
+  }
 }
