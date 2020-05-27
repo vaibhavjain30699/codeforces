@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:codeforces/constants.dart';
+import 'package:connectivity/connectivity.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -16,6 +17,17 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     getContestData();
+  }
+
+  void checkConnectivity() async {
+    var connectivity = await (Connectivity().checkConnectivity());
+    if (!(connectivity == ConnectivityResult.mobile ||
+        connectivity == ConnectivityResult.wifi)) {
+      SnackBar snackBar = SnackBar(
+        content: Text('No Internet'),
+      );
+      Scaffold.of(context).showSnackBar(snackBar);
+    }
   }
 
   void getContestData() async {
@@ -52,10 +64,14 @@ class _SplashScreenState extends State<SplashScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         CircleAvatar(
-                          backgroundColor: Colors.white,
-                          backgroundImage:
-                              AssetImage('images/codeforces_icon.jpeg'),
-                          radius: 100.0,
+                          radius: 103.0,
+                          backgroundColor: Colors.black,
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            backgroundImage:
+                                AssetImage('images/codeforces_icon.jpeg'),
+                            radius: 100.0,
+                          ),
                         ),
                       ],
                     ),

@@ -1,3 +1,4 @@
+import 'package:codeforces/screens/about_screen.dart';
 import 'package:codeforces/screens/settings_screen.dart';
 import 'package:codeforces/screens/user_info_detail.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,7 @@ class _MyAppState extends State<MyApp> {
                 ? ThemeData.dark()
                 : ThemeData.light(),
             routes: {
+              '/about': (context) => AboutScreen(),
               '/settings': (context) => SettingsScreen(),
               '/user_info': (context) => UserInfo(),
               '/home': (context) => HomeScreen(),

@@ -14,7 +14,7 @@ class _ProblemScreenState extends State<ProblemScreen> {
     var data = await networkHelper.getProblemsData();
     List<Problem> problems = [];
     for (var temp in data['result']['problems']) {
-      if (problems.length > 100) break;
+      if (problems.length > 500) break;
       Problem t = Problem(
         id: temp['contestId'],
         name: temp['name'],
